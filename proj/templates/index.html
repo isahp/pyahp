@@ -1,0 +1,481 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>SimpleAHP Webapp</title>
+
+    <!-- Bootstrap Core CSS -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap.min.css') }}">
+
+    <!-- Custom CSS -->
+    <link href="{{ url_for('static', filename='css/sb-admin.css') }}" rel="stylesheet">
+
+    <!-- Morris Charts CSS -->
+    <link href="{{  url_for('static', filename='css/plugins/morris.css') }}" rel="stylesheet">
+
+    <link href="{{ url_for('static', filename='css/bootstrap-switch.min.css') }}" rel="stylesheet">
+
+    <!-- Custom Fonts -->
+    <link href="{{ url_for('static', filename='font-awesome/css/font-awesome.min.css') }}" rel="stylesheet" type="text/css">
+
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/selectize.js/0.12.1/css/selectize.bootstrap3.min.css" rel="stylesheet" type="text/css">
+
+    <!-- Cool datatables -->
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/t/dt/dt-1.10.11/datatables.min.css"/>
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+</head>
+
+<body>
+
+    <div id="wrapper">
+
+        <!-- Navigation -->
+        <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="index.html">SimpleAHP</a>
+            </div>
+            <!-- Top Menu Items -->
+            <ul class="nav navbar-right top-nav">
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-envelope"></i> <b class="caret"></b></a>
+                    <ul class="dropdown-menu message-dropdown">
+                        <li class="message-preview">
+                            <a href="#">
+                                <div class="media">
+                                    <span class="pull-left">
+                                        <img class="media-object" src="http://placehold.it/50x50" alt="">
+                                    </span>
+                                    <div class="media-body">
+                                        <h5 class="media-heading"><strong>John Smith</strong>
+                                        </h5>
+                                        <p class="small text-muted"><i class="fa fa-clock-o"></i> Yesterday at 4:32 PM</p>
+                                        <p>Lorem ipsum dolor sit amet, consectetur...</p>
+                                    </div>
+                                </div>
+                            </a>
+                        </li>
+                        <li class="message-preview">
+                            <a href="#">
+                                <div class="media">
+                                    <span class="pull-left">
+                                        <img class="media-object" src="http://placehold.it/50x50" alt="">
+                                    </span>
+                                    <div class="media-body">
+                                        <h5 class="media-heading"><strong>John Smith</strong>
+                                        </h5>
+                                        <p class="small text-muted"><i class="fa fa-clock-o"></i> Yesterday at 4:32 PM</p>
+                                        <p>Lorem ipsum dolor sit amet, consectetur...</p>
+                                    </div>
+                                </div>
+                            </a>
+                        </li>
+                        <li class="message-preview">
+                            <a href="#">
+                                <div class="media">
+                                    <span class="pull-left">
+                                        <img class="media-object" src="http://placehold.it/50x50" alt="">
+                                    </span>
+                                    <div class="media-body">
+                                        <h5 class="media-heading"><strong>John Smith</strong>
+                                        </h5>
+                                        <p class="small text-muted"><i class="fa fa-clock-o"></i> Yesterday at 4:32 PM</p>
+                                        <p>Lorem ipsum dolor sit amet, consectetur...</p>
+                                    </div>
+                                </div>
+                            </a>
+                        </li>
+                        <li class="message-footer">
+                            <a href="#">Read All New Messages</a>
+                        </li>
+                    </ul>
+                </li>
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-bell"></i> <b class="caret"></b></a>
+                    <ul class="dropdown-menu alert-dropdown">
+                        <li>
+                            <a href="#">Alert Name <span class="label label-default">Alert Badge</span></a>
+                        </li>
+                        <li>
+                            <a href="#">Alert Name <span class="label label-primary">Alert Badge</span></a>
+                        </li>
+                        <li>
+                            <a href="#">Alert Name <span class="label label-success">Alert Badge</span></a>
+                        </li>
+                        <li>
+                            <a href="#">Alert Name <span class="label label-info">Alert Badge</span></a>
+                        </li>
+                        <li>
+                            <a href="#">Alert Name <span class="label label-warning">Alert Badge</span></a>
+                        </li>
+                        <li>
+                            <a href="#">Alert Name <span class="label label-danger">Alert Badge</span></a>
+                        </li>
+                        <li class="divider"></li>
+                        <li>
+                            <a href="#">View All</a>
+                        </li>
+                    </ul>
+                </li>
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user"></i> John Smith <b class="caret"></b></a>
+                    <ul class="dropdown-menu">
+                        <li>
+                            <a href="#"><i class="fa fa-fw fa-user"></i> Profile</a>
+                        </li>
+                        <li>
+                            <a href="#"><i class="fa fa-fw fa-envelope"></i> Inbox</a>
+                        </li>
+                        <li>
+                            <a href="#"><i class="fa fa-fw fa-gear"></i> Settings</a>
+                        </li>
+                        <li class="divider"></li>
+                        <li>
+                            <a href="#"><i class="fa fa-fw fa-power-off"></i> Log Out</a>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+            <!-- Sidebar Menu Items - These collapse to the responsive navigation menu on small screens -->
+            <div class="collapse navbar-collapse navbar-ex1-collapse">
+                <ul class="nav navbar-nav side-nav">
+                    <li class="active">
+                        <a href="#overalltab" data-toggle="tab" role="tab"><i class="fa fa-fw fa-dashboard"></i> Overall</a>
+                    </li>
+                    <li>
+                        <a href="#individualtab" data-toggle="tab" role="tab"><i class="fa fa-fw fa-bar-chart-o"></i> Individuals</a>
+                    </li>
+                    <li>
+                        <a href="#headtoheadtab" data-toggle="tab" role="tab"><i class="fa fa-fw fa-table"></i> Head To Head</a>
+                    </li>
+                    <li>
+                      <a href="#grouptab" data-toggle="tab" role="tab"><i class="fa fa-fw fa-table"></i> Groups</a>
+                    </li>
+                    <!-- <li>
+                        <a href="bootstrap-elements.html"><i class="fa fa-fw fa-desktop"></i> Bootstrap Elements</a>
+                    </li>
+                    <li>
+                        <a href="bootstrap-grid.html"><i class="fa fa-fw fa-wrench"></i> Bootstrap Grid</a>
+                    </li>
+                    <li>
+                        <a href="javascript:;" data-toggle="collapse" data-target="#demo"><i class="fa fa-fw fa-arrows-v"></i> Dropdown <i class="fa fa-fw fa-caret-down"></i></a>
+                        <ul id="demo" class="collapse">
+                            <li>
+                                <a href="#">Dropdown Item</a>
+                            </li>
+                            <li>
+                                <a href="#">Dropdown Item</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="blank-page.html"><i class="fa fa-fw fa-file"></i> Blank Page</a>
+                    </li>
+                    <li>
+                        <a href="index-rtl.html"><i class="fa fa-fw fa-dashboard"></i> RTL Dashboard</a>
+                    </li> -->
+                    <li>
+                      <label for="chart-type" style="color:white">Chart Type:
+                      <input type="checkbox" name="chart-type" id="chart-type" data-on-text="Bar" data-off-text="Line"
+                      data-on-color="blue" data-off-color="blue" data-size="mini"
+                             onchange="updateIndividualGraph();" checked>
+                    </label>
+                    </li>
+                </ul>
+            </div>
+            <!-- /.navbar-collapse -->
+        </nav>
+
+        <div id="page-wrapper">
+          <div class="tab-content">
+           <div class="tab-pane  fade in active" id="overalltab">
+            <div class="container-fluid">
+
+                <!-- Page Heading -->
+                <div class="row">
+                    <div class="col-lg-12">
+                        <h1 class="page-header">
+                            Overall <small>The preferences of the whole group {{ username }}</small>
+                        </h1>
+                        <ol class="breadcrumb">
+                            <li class="active">
+                                <i class="fa fa-dashboard"></i> Dashboard
+                            </li>
+                        </ol>
+                    </div>
+                </div>
+
+                <!-- <div id="tester" style="width:600px;height:250px;"></div> -->
+                <div id="overall" style="width:75%;height:100%;">
+
+                </div>
+                <!-- /.row -->
+            </div>
+            <!-- /.container-fluid -->
+          </div> <!-- tab-panel-->
+          <div class="tab-pane fade" id="individualtab">
+           <div class="container-fluid">
+
+               <!-- Page Heading -->
+               <div class="row">
+                   <div class="col-lg-12">
+                       <h1 class="page-header">
+                           Individuals <small>The preferences of the individual participants</small>
+                       </h1>
+                       <!-- <ol class="breadcrumb">
+                           <li class="active">
+                               <i class="fa fa-dashboard"></i> Dashboard
+                           </li>
+                       </ol> -->
+                   </div>
+               </div>
+
+               <!-- <div id="tester" style="width:600px;height:250px;"></div> -->
+               <!-- <div class="control-group"> -->
+       					<label for="select-individual"><h3>Select a participant:</h3></label>
+       					<select id="select-individual" class="demo-default" placeholder="Select a person..."
+                  onchange="updateIndividualGraph();">
+       						<option value="">Select a person...</option>
+       						<option value="4">Thomas Edison</option>
+       						<option value="1">Nikola</option>
+       						<option value="3">Nikola Tesla</option>
+       						<option value="5">Arnold Schwarzenegger</option>
+       					</select>
+       				<!-- </div> -->
+              <div id="individualplot" style="width:600px;height:500px;">
+              </div>
+               <!--<button data-toggle="collapse" data-target="#individualtable-wrapper">Data Table</button>-->
+               <!--The individual table-->
+               <div id="individualtable-wrapper">
+               <table id="individualtable" class="display" cellspacing="0" width="100%">
+                   <thead>
+                   <tr>
+                       <td>Name</td>
+                       <td>Kitchen</td>
+                       <td>Math</td>
+                       <td>Library</td>
+                       <td>Animals</td>
+                   </tr>
+                   </thead>
+                   <tfoot>
+                   <tr>
+                       <td>Name</td>
+                       <td>Kitchen</td>
+                       <td>Math</td>
+                       <td>Library</td>
+                       <td>Animals</td>
+                   </tr>
+                   </tfoot>
+                   <tbody>
+                   <tr>
+                       <td>Bill</td>
+                       <td>1.0</td>
+                       <td>0.75</td>
+                       <td>0.50</td>
+                       <td>0.25</td>
+                   </tr>
+                   <tr>
+                       <td>Jeff</td>
+                       <td>0.66</td>
+                       <td>0.75</td>
+                       <td>1.0</td>
+                       <td>0.9</td>
+                   </tr>
+                   </tbody>
+               </table>
+               </div>
+               <!-- /.row -->
+           </div>
+           <!-- /.container-fluid -->
+         </div> <!-- tab-panel-->
+         <div class="tab-pane fade" id="headtoheadtab">
+          <div class="container-fluid">
+
+              <!-- Page Heading -->
+              <div class="row">
+                  <div class="col-lg-12">
+                      <h1 class="page-header">
+                          Head to head: <small>The preferences of the individual participants</small>
+                      </h1>
+                      <!-- <ol class="breadcrumb">
+                          <li class="active">
+                              <i class="fa fa-dashboard"></i> Dashboard
+                          </li>
+                      </ol> -->
+                  </div>
+              </div>
+
+              <!-- <div id="tester" style="width:600px;height:250px;"></div> -->
+              <!-- <div class="control-group"> -->
+               <label for="select-individual"><h3>Select a participant:</h3></label>
+               <select multiple="true" id="select-multiple" class="demo-default" placeholder="Select a person...">
+                 <option value="">Select a person...</option>
+                 <option value="4">Thomas Edison</option>
+                 <option value="1">Nikola</option>
+                 <option value="3">Nikola Tesla</option>
+                 <option value="5">Arnold Schwarzenegger</option>
+               </select>
+             <!-- </div> -->
+             <div id="individualplot" style="width:600px;height:500px;">
+             </div>
+              <!-- /.row -->
+          </div>
+          <!-- /.container-fluid -->
+        </div> <!-- tab-panel-->
+        <div class="tab-pane fade" id="grouptab">
+         <div class="container-fluid">
+
+             <!-- Page Heading -->
+             <div class="row">
+                 <div class="col-lg-12">
+                     <h1 class="page-header">
+                         Groups: <small>The preferences of groups</small>
+                     </h1>
+                     <!-- <ol class="breadcrumb">
+                         <li class="active">
+                             <i class="fa fa-dashboard"></i> Dashboard
+                         </li>
+                     </ol> -->
+                 </div>
+             </div>
+
+             <!-- <div id="tester" style="width:600px;height:250px;"></div> -->
+             <!-- <div class="control-group"> -->
+              <label for="select-group"><h3>Select groups:</h3></label>
+              <select multiple="true" id="select-group" class="demo-default" placeholder="Select a person...">
+                <option value="">Select a person...</option>
+                <option value="4">Thomas Edison</option>
+                <option value="1">Nikola</option>
+                <option value="3">Nikola Tesla</option>
+                <option value="5">Arnold Schwarzenegger</option>
+              </select>
+            <!-- </div> -->
+            <div id="individualplot" style="width:600px;height:500px;">
+            </div>
+             <!-- /.row -->
+         </div>
+         <!-- /.container-fluid -->
+       </div> <!-- tab-panel-->
+          </div> <!-- tab-content-->
+        </div>
+        <!-- /#page-wrapper -->
+
+    </div>
+    <!-- /#wrapper -->
+
+    <!-- jQuery -->
+    <script src="{{ url_for('static', filename='js/jquery.js') }}"></script>
+
+    <!-- Bootstrap Core JavaScript -->
+    <script src="{{ url_for('static', filename='js/bootstrap.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/plotly-latest.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/bootstrap-switch.min.js') }}"></script>
+
+    <script src="https://cdn.datatables.net/1.10.11/js/jquery.dataTables.min.js"></script>
+    <script type="text/javascript" src="https://cdn.datatables.net/t/dt/dt-1.10.11/datatables.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/selectize.js/0.12.1/js/standalone/selectize.js"></script>
+    <!-- Morris Charts JavaScript -->
+<!--    <script src="js/plugins/morris/raphael.min.js"></script>
+    <script src="js/plugins/morris/morris.min.js"></script>
+    <script src="js/plugins/morris/morris-data.js"></script>-->
+    <script>
+      var data = [
+    {
+      x: ['Math', 'Kitchen', 'Library', 'Animals'],
+      y: [1.0, 0.75, 0.25, 0.50],
+      type: 'bar'
+    }
+  ];
+
+Plotly.newPlot('overall', data);
+
+Plotly.newPlot('individualplot', data);
+
+var participantList = [
+    {
+        text: 'Will',
+        value: 'Will'
+    },
+    {
+        text: 'Bill',
+        value: 'Bill'
+    },
+    {
+        text: 'Belle',
+        value: 'Belle'
+    }
+];
+$('#select-multiple').selectize({
+  create:true
+});
+
+$('#select-group').selectize({
+  create:true
+});
+
+selectize = $('#select-individual').selectize({
+  create: true
+});
+var selectize = $("#select-individual")[0].selectize;
+selectize.clear();
+selectize.clearOptions();
+selectize.load(function(callback) {
+    callback(participantList);
+});
+
+$('#chart-type').bootstrapSwitch();
+$('#individualtable').DataTable();
+
+
+
+
+function getUserScores(username) {
+  rval = {
+    x: ["Animals", "Kitchen","Library","Math"],
+    y: [Math.random(),Math.random(),Math.random(),Math.random()]
+  }
+  return(rval);
+}
+function getChartType() {
+  val = $('#chart-type').bootstrapSwitch('state');
+  if (val) {
+    return('bar');
+  } else {
+    return('scatter');
+  }
+}
+
+function updateIndividualGraph() {
+  selected = $('#select-individual').val();
+  scores = getUserScores(selected);
+  var data = [
+  {
+      x: scores['x'],
+      y: scores['y'],
+      type: getChartType()
+  }];
+  Plotly.newPlot('individualplot', data);
+}
+    </script>
+</body>
+
+</html>
