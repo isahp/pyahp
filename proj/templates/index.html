@@ -197,7 +197,7 @@
                       <label for="chart-type" style="color:white">Chart Type:
                       <input type="checkbox" name="chart-type" id="chart-type" data-on-text="Bar" data-off-text="Line"
                       data-on-color="blue" data-off-color="blue" data-size="mini"
-                             onchange="updateIndividualGraph();" checked>
+                             onchange="updateAllGraphs();" checked>
                     </label>
                     </li>
                 </ul>
@@ -327,7 +327,8 @@
               <!-- <div id="tester" style="width:600px;height:250px;"></div> -->
               <!-- <div class="control-group"> -->
                <label for="select-individual"><h3>Select a participant:</h3></label>
-               <select multiple="true" id="select-multiple" class="demo-default" placeholder="Select a person...">
+               <select multiple="true" id="select-multiple" class="demo-default" placeholder="Select a person..."
+               onchange = "updateMultipleGraph();">
                  <option value="">Select a person...</option>
                  <option value="4">Thomas Edison</option>
                  <option value="1">Nikola</option>
@@ -335,7 +336,7 @@
                  <option value="5">Arnold Schwarzenegger</option>
                </select>
              <!-- </div> -->
-             <div id="individualplot" style="width:600px;height:500px;">
+             <div id="multipleplot" style="width:600px;height:500px;">
              </div>
               <!-- /.row -->
           </div>
@@ -381,7 +382,9 @@
 
     </div>
     <!-- /#wrapper -->
-
+    <div hidden="true" id="all-data2">
+        {{ allData }}
+    </div>
     <!-- jQuery -->
     <script src="{{ url_for('static', filename='js/jquery.js') }}"></script>
 
@@ -398,6 +401,8 @@
     <script src="js/plugins/morris/morris.min.js"></script>
     <script src="js/plugins/morris/morris-data.js"></script>-->
     <script>
+        AllDataJSON = $('#all-data2').text();
+        AllData = JSON.parse(AllDataJSON);
       var data = [
     {
       x: ['Math', 'Kitchen', 'Library', 'Animals'],
@@ -410,51 +415,50 @@ Plotly.newPlot('overall', data);
 
 Plotly.newPlot('individualplot', data);
 
-var participantList = [
-    {
-        text: 'Will',
-        value: 'Will'
-    },
-    {
-        text: 'Bill',
-        value: 'Bill'
-    },
-    {
-        text: 'Belle',
-        value: 'Belle'
-    }
-];
-$('#select-multiple').selectize({
+Plotly.newPlot('multipleplot', data);
+
+var selectize_multiple = $('#select-multiple').selectize({
   create:true
 });
 
-$('#select-group').selectize({
+var selectize_group = $('#select-group').selectize({
   create:true
 });
 
-selectize = $('#select-individual').selectize({
-  create: true
-});
-var selectize = $("#select-individual")[0].selectize;
-selectize.clear();
-selectize.clearOptions();
-selectize.load(function(callback) {
-    callback(participantList);
+var selectize_individual = $('#select-individual').selectize({
+    create:true
 });
 
 $('#chart-type').bootstrapSwitch();
 $('#individualtable').DataTable();
 
 
-
+function updateUsersList() {
+    var userNames = AllData['users']
+    //console.log(userNames)
+    var participantList = []
+    for (i in userNames) {
+        var nval = {text: userNames[i], value: userNames[i]}
+        participantList.push(nval);
+    }
+    //console.log(participantList);
+    //console.log(selectize_individual);
+    var control = selectize_individual[0].selectize;
+    control.clearOptions();
+    control.addOption(participantList);
+    control = selectize_multiple[0].selectize;
+    control.clearOptions();
+    control.addOption(participantList);
+}
 
 function getUserScores(username) {
   rval = {
-    x: ["Animals", "Kitchen","Library","Math"],
-    y: [Math.random(),Math.random(),Math.random(),Math.random()]
+    x: AllData['alts'],
+    y: AllData['userScores'][username]
   }
   return(rval);
 }
+
 function getChartType() {
   val = $('#chart-type').bootstrapSwitch('state');
   if (val) {
@@ -475,6 +479,34 @@ function updateIndividualGraph() {
   }];
   Plotly.newPlot('individualplot', data);
 }
+
+function updateMultipleGraph() {
+    var selected = $('#select-multiple').val();
+    var data = []
+    for (i in selected) {
+        var scores = getUserScores(selected[i]);
+        var trace = {
+            x: scores['x'],
+            y: scores['y'],
+            type: getChartType(),
+            name: selected[i]
+        }
+        data.push(trace)
+    }
+    console.log(data);
+    var layout = {barmode: 'group'};
+    Plotly.newPlot('multipleplot', data, layout);
+}
+function updateAllGraphs() {
+    updateIndividualGraph();
+    updateMultipleGraph();
+}
+function updateEverything() {
+    updateUsersList();
+    updateIndividualGraph();
+    updateMultipleGraph();
+}
+updateEverything();
     </script>
 </body>
 
